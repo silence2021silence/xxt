@@ -1,7 +1,7 @@
 # -*- coding=utf-8 -*-
 """
-Time:        2022/12/18 21:40
-Version:     V 0.0.2
+Time:        2022/12/18 22:30
+Version:     V 0.0.3
 File:        xxt.py
 Describe:
 Author:      Lanyu
@@ -13,6 +13,7 @@ Github link: https://github.com/silence2021silence/
 import time
 import pyautogui
 import os
+import requests
 
 
 def get_task():
@@ -33,7 +34,8 @@ def click(img):
     while True:
         if not os.path.exists(img):
             print("找不到" + img + "文件")
-            input("输入任意内容退出\n")
+            input("请输入任意内容后按回车键退出\n")
+            exit()
         location = pyautogui.locateCenterOnScreen(img, confidence=0.9)
         if location is not None:
             pyautogui.click(location.x, location.y, interval=0.2, duration=0.5, button="left")
@@ -55,6 +57,14 @@ def click(img):
 
 
 def main():
+    if not os.path.exists("img"):
+        print("找不到img文件夹")
+        input("请输入任意内容后按回车键退出\n")
+        exit()
+    if not os.path.exists("task.txt"):
+        print("找不到task.txt文件")
+        input("请输入任意内容后按回车键退出\n")
+        exit()
     task_list = get_task()
     i = 0
     while i < len(task_list):
@@ -64,11 +74,20 @@ def main():
         i += 1
 
 
+def welcome():
+    print("欢迎使用本程序，技术支持与意见反馈请关注微信公众号“geeklanyu”或联系邮箱“silence2021silence@163.com”")
+    print("免责声明：本程序仅供学习、研究与娱乐使用，使用本程序违反相关法律或相关规章制度的与作者无关，禁止用于任何商业用途。")
+    text = input("请输入“同意”或“不同意”后按回车键\n")
+    if text != "同意":
+        exit()
+    version = "v0.0.3"
+    new_version = requests.get("https://zhangkelan.com/xxt-update.html").text
+    if version != new_version:
+        print("本程序有新版本，请前往https://gitee.com/silence2021silence/下载最新版本")
+        input("请输入任意内容后按回车键退出\n")
+        exit()
+
+
 if __name__ == "__main__":
-    if not os.path.exists("img"):
-        print("找不到img文件夹")
-        input("输入任意内容退出\n")
-    if not os.path.exists("task.txt"):
-        print("找不到task.txt文件")
-        input("输入任意内容退出\n")
+    welcome()
     main()
