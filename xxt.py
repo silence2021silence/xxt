@@ -1,7 +1,7 @@
 # -*- coding=utf-8 -*-
 """
-Time:        2022/12/18 22:30
-Version:     V 0.0.3
+Time:        2022/12/19 16:30
+Version:     V 0.0.4
 File:        xxt.py
 Describe:
 Author:      Lanyu
@@ -21,16 +21,18 @@ def get_task():
     lines = txt_file.readlines()
     task_list = []
     for i in range(len(lines) - 2):
-        j = lines[i + 2].replace("\n", "")
-        k = lines[0].replace("\n", "")
-        m = lines[1].replace("\n", "")
-        task_list.append("img/" + j)
-        task_list.append("img/" + k)
-        task_list.append("img/" + m)
-    return task_list
+        part = lines[i + 2].replace("\n", "")
+        play_key = lines[0].replace("\n", "")
+        replay_key = lines[1].replace("\n", "")
+        task_list.append("img/" + part)
+        task_list.append("img/" + play_key)
+        task_list.append("img/" + replay_key)
+    play_key_path = task_list[1]
+    replay_key_path = task_list[2]
+    return task_list, play_key_path, replay_key_path
 
 
-def click(img):
+def click(img, play_key_path, replay_key_path):
     while True:
         if not os.path.exists(img):
             print("找不到" + img + "文件")
@@ -41,10 +43,10 @@ def click(img):
             pyautogui.click(location.x, location.y, interval=0.2, duration=0.5, button="left")
             break
         else:
-            if img == "img/replay.png":
+            if img == replay_key_path:
                 print("等待播放完毕")
                 time.sleep(1)
-            elif img == "img/play.png":
+            elif img == play_key_path:
                 time.sleep(2)
                 pyautogui.moveTo(1400, 700, duration=0.5)
                 pyautogui.scroll(-200)
@@ -65,11 +67,11 @@ def main():
         print("找不到task.txt文件")
         input("请输入任意内容后按回车键退出\n")
         exit()
-    task_list = get_task()
+    task_list, play_key_path, replay_key_path = get_task()
     i = 0
     while i < len(task_list):
         img = task_list[i]
-        click(img)
+        click(img, play_key_path, replay_key_path)
         print("点击", img)
         i += 1
 
@@ -80,7 +82,7 @@ def welcome():
     text = input("请输入“同意”或“不同意”后按回车键\n")
     if text != "同意":
         exit()
-    version = "v0.0.3"
+    version = "v0.0.4"
     new_version = requests.get("https://zhangkelan.com/xxt-update.html").text
     if version != new_version:
         print("本程序有新版本，请前往https://gitee.com/silence2021silence/下载最新版本")
