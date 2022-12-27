@@ -1,5 +1,5 @@
 # chaoxingxuexitong
-### 超星学习通自动刷网课视频脚本 [[最新版本为v0.0.4点击下载]](https://www.aliyundrive.com/s/TXhHqUw8dE1)[[淘宝接商单]](https://geeklanyu.taobao.com)
+### 超星学习通自动刷网课视频脚本 [[最新版本为v0.0.5点击下载]](https://www.aliyundrive.com/s/TXhHqUw8dE1)[[淘宝接商单]](https://geeklanyu.taobao.com)
 ### 技术支持与意见反馈可直接在仓库建issues或者关注微信公众号“geeklanyu”留言或者联系邮箱“silence2021silence@163.com”。
 ### 免责声明：本程序仅供学习、研究与娱乐使用，使用本程序违反相关法律或相关规章制度的与作者无关，禁止用于任何商业用途。
 
